@@ -46,11 +46,9 @@ for key, value in users_account_balances.items():
       users_account_balances[key] = value
 
 pprint(users_account_balances)
+print("\n")
 
-account_balance_file.close()
-
-field_names = ['Account', 'Balance']
-
+#write updated balnce to updated_balance.MO.csv.
 with open("updated_balance_MO.csv", "w", newline="") as file:
     writer = csv.writer(file)
     # Write the header
@@ -59,3 +57,9 @@ with open("updated_balance_MO.csv", "w", newline="") as file:
     # Write the data
     for key, value in users_account_balances.items():
         writer.writerow([key, value])
+
+# Read files from updated_balance_MO.csv with dictreader.
+with open("updated_balance_MO.csv", "r") as csv_file:
+   csv_reader = csv.DictReader(csv_file)
+   for line in csv_reader:
+      print(line)
