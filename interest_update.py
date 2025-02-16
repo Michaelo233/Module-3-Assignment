@@ -15,31 +15,47 @@ pprint(users_account_balances)
 print("\n")
 
 for key, value in users_account_balances.items():
-   if value >= 1000:
-      #print(value)
-      balance = (value * 2.5) / (12 * 100)
-      value += balance
-      users_account_balances[key] = value
-      
-   elif value < 1000:
-      balance = (value * 1) / (12 * 100)
-      value += balance
+
+   # 5% interest added.
+   if value >= 5000:
+      interest = (value * 5) / (12 * 100)
+      value += interest
       users_account_balances[key] = value
 
-   elif value >= 5000:
-      balance = (value * 5) / (12 * 100)
-      value += balance
+   # 2.5% interest added.
+   elif value >= 1000:
+      interest = (value * 2.5) / (12 * 100)
+      value += interest
       users_account_balances[key] = value
 
-   elif value == 0:
+   # 1% interest added.     
+   elif value > 0:
+      interest = (value * 1) / (12 * 100)
+      value += interest
+      users_account_balances[key] = value
+
+   # 10% interest charged.
+   elif value < 0:
+      interest= (value * 10) / (12 * 100)
+      value += interest
+      users_account_balances[key] = value
+
+   # 0% interest charged or added.  
+   else :
       value = value
       users_account_balances[key] = value
 
-   else:
-      balance = (value * 10) / (12 * 100)
-      value += balance
-      users_account_balances[key] = value
 pprint(users_account_balances)
 
 account_balance_file.close()
 
+field_names = ['Account', 'Balance']
+
+with open("updated_balance_MO.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    # Write the header
+    writer.writerow(["Account", "Balance"])
+
+    # Write the data
+    for key, value in users_account_balances.items():
+        writer.writerow([key, value])
