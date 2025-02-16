@@ -12,10 +12,10 @@ filler = "*"
 fill_char = "*"
 filler = filler.center(40, fill_char)
 
-option_menu[2] = False
+condition_met = False
 
 # this checks if the selection is Q, if yes, option_menu[2] = True.
-while not option_menu[2]:
+while not condition_met:
     print(f"{filler} \n {space:>8} PIXELL RIVER FINANCIAL \n {space:>13}"
         f"ATM Simulator \n\n {space:>2}Your current balance is: "
         f"${account_balance:,.2f} \n\n {space:>14} Deposit: D \n "
@@ -32,6 +32,12 @@ while not option_menu[2]:
     
         print(f"\n{filler}\n Your current balance is: "
               f"${account_balance:,.2f}\n{filler}\n")
+        
+         # Pause the script for the specified number of seconds
+        time.sleep(3)
+
+         # Clear the screen
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     # check is selection is W, and withdraws users input from the bank.
     # it also confirms if user has sufficient funds to withdraw. 
@@ -39,14 +45,30 @@ while not option_menu[2]:
         transaction_amount = float(
             input("Enter the transaction amount: "))
         if account_balance - transaction_amount <= 0:
-            print(f"\n{filler}\n {space:>10w} INSUFFICIENT FUNDS\n"
+            print(f"\n{filler}\n {space:>10} INSUFFICIENT FUNDS\n"
                   f"{filler}\n")
+            
+             # Pause the script for the specified number of seconds
+            time.sleep(3)
+
+            # Clear the screen
+            os.system('cls' if os.name == 'nt' else 'clear')
         
         else:
             account_balance -= transaction_amount
             print(f"\n{filler}\n Your current balance is: "
                   f"${account_balance:,.2f}\n{filler}\n")
-    
+            
+             # Pause the script for the specified number of seconds
+            time.sleep(3)
+
+            # Clear the screen
+            os.system('cls' if os.name == 'nt' else 'clear')
+            
+    # checks if users input is Q and ends the program.
+    elif selection in option_menu and selection == option_menu[2]:
+        condition_met = True
+
     # check if users selection is valid.
     else:
         print(f"\n{filler}\n{space:>11} INVALID SELECTION\n{filler}")
